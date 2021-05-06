@@ -21,6 +21,7 @@ RUN set -x \
     && pip3 install -U \
     cmake==3.18.4 \
     awscli \
+    lavacli \
     && : # last line
     
     
