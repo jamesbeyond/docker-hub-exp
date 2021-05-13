@@ -1,0 +1,28 @@
+name: Docker repo ci-test-env-exp PR test
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  TAG-greentea:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Build Docker image ci-test-env-exp:greentea
+      run: docker build ci-test-env-exp/greentea/ --tag local-ci-test-env-exp:greentea
+    - name: Test image ci-test-env-exp:greentea for import blinky
+      run: docker run --rm local-ci-test-env-exp:greentea mbed import mbed-os-example-blinky
+
+  TAG-zephyr:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Build Docker Image ci-test-env-exp:zephyr
+      run: docker build ci-test-env-exp/zephyr/ --tag local-ci-test-env-exp:zephyr
+    - name: Test Image ci-test-env-exp:zephyr for west init
+      run: docker run --rm local-ci-test-env-exp:zephyr west init
+

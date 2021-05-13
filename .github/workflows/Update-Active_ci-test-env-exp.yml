@@ -1,0 +1,29 @@
+name: Docker repo ci-test-env-exp PR test
+
+on:
+  # This workflow only runs when triggered by a push event
+  push:
+    # Only runs when take push events on master branch
+    branches: [ master ]
+    # Only runs take push changes Dockerfile inside ci-test-env-exp folder
+    paths:
+      - 'ci-test-env-exp/*/Dockerfile'
+
+jobs:
+
+  TAG-greentea:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Build Docker image ci-test-env-exp:greentea
+      run: docker build ci-test-env-exp/greentea/ --tag mbedos/ci-test-env-exp:greentea
+
+  TAG-zephyr:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Build Docker Image ci-test-env-exp:zephyr
+      run: docker build ci-test-env-exp/zephyr/ --tag mbedos/ci-test-env-exp:zephyr
+
