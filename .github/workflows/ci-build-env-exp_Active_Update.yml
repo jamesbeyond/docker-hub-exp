@@ -1,8 +1,13 @@
-name: Docker repo ci-build-env-exp PR test
+name: Docker repo ci-test-env-exp Active Ppdate Push
 
 on:
-  pull_request:
+  # This workflow only runs when triggered by a push event
+  push:
+    # Only runs when take push events on master branch
     branches: [ master ]
+    # Only runs take push changes Dockerfile inside ci-test-env-exp folder
+    paths:
+      - 'ci-build-env-exp/*/Dockerfile'
 
 jobs:
 
@@ -11,26 +16,22 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Build Docker image with TAG <cmake3.18>
+    - name: Build image TAG <cmake3.18>
       run: docker build ci-build-env-exp/cmake3.18/ --tag local-ci-build-env-exp:cmake3.18
-    - name: Test image TAG <cmake3.18>
-      run: docker run local-ci-build-env-exp:cmake3.18 cmake --version | grep "cmake version 3.18"
 
   TAG-cmake3_20:
     runs-on: ubuntu-20.04
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Build Docker Image with TAG <cmake3.20>
+    - name: Build image TAG <cmake3.20>
       run: docker build ci-build-env-exp/cmake3.20/ --tag local-ci-build-env-exp:cmake3.20
-    - name: Test image TAG <cmake3.20>
-      run: docker run local-ci-build-env-exp:cmake3.20 cmake --version | grep "cmake version 3.20"
 
   TAG-awscli:
     runs-on: ubuntu-20.04
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Build Docker Image with TAG <awscli>
+    - name: Build image TAG <awscli>
       run: docker build ci-build-env-exp/awscli/ --tag local-ci-build-env-exp:awscli
 

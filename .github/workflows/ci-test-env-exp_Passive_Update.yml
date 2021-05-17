@@ -1,4 +1,4 @@
-name: Docker repo ci-test-env-exp PR test
+name: Docker repo ci-test-env-exp Passive Update
 
 on:
   schedule:

@@ -1,4 +1,4 @@
-name: Docker repo ci-test-env-exp PR test
+name: Docker repo ci-test-env-exp Active Update Push
 
 on:
   # This workflow only runs when triggered by a push event
