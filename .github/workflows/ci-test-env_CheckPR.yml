@@ -6,7 +6,7 @@ on:
 
 jobs:
 
-  TAG_gcc-arm:
+  TAG_greentea:
     runs-on: ubuntu-20.04
     env:
       TAG_NAME: greentea
