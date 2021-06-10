@@ -18,7 +18,7 @@ jobs:
     - name: Test image tag <$TAG_NAME>
       run: |
         docker run --rm ci-test-env:$TAG_NAME cat env_settings
-        docker run --rm ci-test-env:$TAG_NAME ./env_tests.sh
+        docker run --rm ci-test-env:$TAG_NAME ./env_test.sh
     - name: Push image tag <$TAG_NAME> to remote
       run: echo TBD Implement push function $TAG_NAME
 
@@ -35,7 +35,7 @@ jobs:
     - name: Test image tag <$TAG_NAME>
       run: |
         docker run --rm ci-test-env:$TAG_NAME cat env_settings
-        docker run --rm ci-test-env:$TAG_NAME ./env_tests.sh
+        docker run --rm ci-test-env:$TAG_NAME ./env_test.sh
     - name: Push image tag <$TAG_NAME> to remote
       run: echo TBD Implement push function $TAG_NAME
 

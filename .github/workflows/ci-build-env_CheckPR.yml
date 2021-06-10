@@ -19,10 +19,10 @@ jobs:
     - name: Test image tag $TAG_NAME
       run: |
         docker run --rm ci-build-env:$TAG_NAME cat env_settings
-        docker run --rm ci-build-env:$TAG_NAME ./env_tests.sh
+        docker run --rm ci-build-env:$TAG_NAME ./env_test.sh
 
 
-  TAG_gcc-arm:
+  TAG_armc6:
     runs-on: ubuntu-20.04
     env:
       TAG_NAME: armc6
@@ -34,5 +34,5 @@ jobs:
     - name: Test image tag $TAG_NAME
       run: |
         docker run --rm ci-build-env:$TAG_NAME cat env_settings
-        docker run --rm ci-build-env:$TAG_NAME ./env_tests.sh
+        docker run --rm ci-build-env:$TAG_NAME ./env_test.sh
 
