@@ -1,0 +1,37 @@
+name: Docker repo ci-test-env PR Check
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  TAG_gcc-arm:
+    runs-on: ubuntu-20.04
+    env:
+      TAG_NAME: greentea
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Build Docker image with tag $TAG_NAME
+      run: docker build ci-test-env/$TAG_NAME/ --tag ci-test-env:$TAG_NAME
+    - name: Test image tag $TAG_NAME
+      run: |
+        docker run --rm ci-test-env:$TAG_NAME cat env_settings
+        docker run --rm ci-test-env:$TAG_NAME ./env_tests.sh
+
+
+  TAG_zephyr:
+    runs-on: ubuntu-20.04
+    env:
+      TAG_NAME: zephyr
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Build Docker image with tag $TAG_NAME
+      run: docker build ci-test-env/$TAG_NAME/ --tag ci-test-env:$TAG_NAME
+    - name: Test image tag $TAG_NAME
+      run: |
+        docker run --rm ci-test-env:$TAG_NAME cat env_settings
+        docker run --rm ci-test-env:$TAG_NAME ./env_tests.sh
+
