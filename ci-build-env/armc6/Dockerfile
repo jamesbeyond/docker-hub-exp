@@ -53,6 +53,7 @@ RUN set -x \
 # Display, check and save environment settings
 # NOTE: using bash instead of Ubuntu default dash due to unsupport for pipefail
 # Pipefail is crucial here, if the tools didn't install properly, docker build should not pass because of piping 
+# Cat the manifest file to get arm compiler versions due to it fail to run without license being set 
 WORKDIR $WORKDIR
 RUN /bin/bash -c \
    "set -x -o pipefail \
@@ -61,7 +62,7 @@ RUN /bin/bash -c \
     && clang-format --version | tee -a env_settings \
     && aws --version | tee -a env_settings \
     && lavacli --version | tee -a env_settings \
-    && armclang --version 2>&1 | grep Product: | tee -a env_settings \
+    && cat /opt/ARMCompiler6.16/sw/manifest.txt | grep Component | tee -a env_settings \
     && cmake --version | grep version | tee -a env_settings \
     && : # LAST LINE"
 COPY env_test.sh ./env_test.sh
