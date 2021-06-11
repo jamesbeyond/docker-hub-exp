@@ -1,8 +1,14 @@
-name: Docker repo ci-test-env Passive Update
+name: Docker Repo [ ci-test-env ] Passive Update
 
 on:
   schedule:
-    - cron:  '15 9 * 7 *'
+    # Triggers This job at every Sunday 9am
+    - cron:  '0 9 * * 6'
+  # Accept manual triggers
+  workflow_dispatch:
+
+env:
+  DOCKER_NAME: ci-test-env
 
 jobs:
 
@@ -13,15 +19,14 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Build Docker image with tag <$TAG_NAME>
-      run: docker build ci-test-env/$TAG_NAME/ --tag ci-test-env:$TAG_NAME
-    - name: Test image tag <$TAG_NAME>
-      run: |
-        docker run --rm ci-test-env:$TAG_NAME cat env_settings
-        docker run --rm ci-test-env:$TAG_NAME ./env_test.sh
-    - name: Push image tag <$TAG_NAME> to remote
-      run: echo TBD Implement push function $TAG_NAME
-
+    - name: Build Docker image ${{env.DOCKER_NAME}}:${{env.TAG_NAME}}
+      run: docker build ${{env.DOCKER_NAME}}/${{env.TAG_NAME}}/ --tag ${{env.DOCKER_NAME}}:${{env.TAG_NAME}}
+    - name: Show tools installed
+      run: docker run --rm ${{env.DOCKER_NAME}}:${{env.TAG_NAME}} cat env_settings
+    - name: Test Docker image
+      run: docker run --rm ${{env.DOCKER_NAME}}:${{env.TAG_NAME}} ./env_test.sh
+    - name: Push image tag <${{env.TAG_NAME}}> to remote
+      run: echo TBD Implement push function for ${{env.DOCKER_NAME}}:${{env.TAG_NAME}}
 
   TAG-zephyr:
     runs-on: ubuntu-20.0a
@@ -30,12 +35,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Build Docker image with tag <$TAG_NAME>
-      run: docker build ci-test-env/$TAG_NAME/ --tag ci-test-env:$TAG_NAME
-    - name: Test image tag <$TAG_NAME>
-      run: |
-        docker run --rm ci-test-env:$TAG_NAME cat env_settings
-        docker run --rm ci-test-env:$TAG_NAME ./env_test.sh
-    - name: Push image tag <$TAG_NAME> to remote
-      run: echo TBD Implement push function $TAG_NAME
+    - name: Build Docker image ${{env.DOCKER_NAME}}:${{env.TAG_NAME}}
+      run: docker build ${{env.TAG_NAME}}/${{env.TAG_NAME}}/ --tag ${{env.TAG_NAME}}:${{env.TAG_NAME}}
+    - name: Show tools installed
+      run: docker run --rm ${{env.DOCKER_NAME}}:${{env.TAG_NAME}} cat env_settings
+    - name: Test Docker image
+      run: docker run --rm ${{env.DOCKER_NAME}}:${{env.TAG_NAME}} ./env_test.sh
+    - name: Push image tag <${{env.TAG_NAME}}> to remote
+      run: echo TBD Implement push function for ${{env.DOCKER_NAME}}:${{env.TAG_NAME}}
 

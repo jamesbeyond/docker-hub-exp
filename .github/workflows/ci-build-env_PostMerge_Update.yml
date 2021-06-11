@@ -1,13 +1,16 @@
-name: Docker repo ci-test-env Active Update Push
+name: Docker Repo [ ci-build-env ] Active Update Push
 
 on:
   # This workflow only runs when triggered by a push event
   push:
     # Only runs when take push events on master branch
     branches: [ master ]
-    # Only runs take push changes Dockerfile inside ci-test-env folder
+    # Only runs take push changes Dockerfile inside ci-build-env folder
     paths:
       - 'ci-build-env/*/Dockerfile'
+
+env:
+  DOCKER_NAME: ci-build-env
 
 jobs:
 
@@ -18,10 +21,10 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Build image tag <$TAG_NAME>
-      run: docker build ci-build-env/$TAG_NAME/ --tag ci-build-env:$TAG_NAME
-    - name: Push image tag <$TAG_NAME> to remote
-      run: echo TBD Implement push function $TAG_NAME
+    - name: Build image ${{env.DOCKER_NAME}}:${{env.TAG_NAME}}
+      run: docker build ${{env.DOCKER_NAME}}/${{env.TAG_NAME}}/ --tag ${{env.DOCKER_NAME}}:${{env.TAG_NAME}}
+    - name: Push image tag <${{env.TAG_NAME}}> to remote
+      run: echo TBD Implement push function for ${{env.DOCKER_NAME}}:${{env.TAG_NAME}}
 
 
   TAG_armc6:
@@ -31,8 +34,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Build image tag <$TAG_NAME>
-      run: docker build ci-build-env/$TAG_NAME/ --tag ci-build-env:$TAG_NAME
-    - name: Push image tag <$TAG_NAME> to remote
-      run: echo TBD Implement push function $TAG_NAME
+    - name: Build image ${{env.DOCKER_NAME}}:${{env.TAG_NAME}}
+      run: docker build ${{env.DOCKER_NAME}}/${{env.TAG_NAME}}/ --tag ${{env.DOCKER_NAME}}:${{env.TAG_NAME}}
+    - name: Push image tag <${{env.TAG_NAME}}> to remote
+      run: echo TBD Implement push function for ${{env.DOCKER_NAME}}:${{env.TAG_NAME}}
 

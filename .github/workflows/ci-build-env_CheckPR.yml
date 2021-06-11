@@ -1,11 +1,13 @@
-name: Docker repo ci-build-env PR Check
-
+name: Docker Repo [ ci-build-env ] PR Check
+  
 on:
   pull_request:
     branches: [ master ]
 
+env:
+  DOCKER_NAME: ci-build-env
+
 jobs:
-  
 
   TAG_gcc-arm:
     runs-on: ubuntu-20.04
@@ -14,12 +16,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Build Docker image with tag $TAG_NAME
-      run: docker build ci-build-env/$TAG_NAME/ --tag ci-build-env:$TAG_NAME
-    - name: Test image tag $TAG_NAME
-      run: |
-        docker run --rm ci-build-env:$TAG_NAME cat env_settings
-        docker run --rm ci-build-env:$TAG_NAME ./env_test.sh
+    - name: Build Docker image ${{env.DOCKER_NAME}}:${{env.TAG_NAME}}
+      run: docker build ${{env.DOCKER_NAME}}/${{env.TAG_NAME}}/ --tag ${{env.DOCKER_NAME}}:${{env.TAG_NAME}}
+    - name: Show tools installed
+      run: docker run --rm ${{env.DOCKER_NAME}}:${{env.TAG_NAME}} cat env_settings
+    - name: Test docker image
+      run: docker run --rm ${{env.DOCKER_NAME}}:${{env.TAG_NAME}} ./env_test.sh
 
 
   TAG_armc6:
@@ -29,10 +31,10 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Build Docker image with tag $TAG_NAME
-      run: docker build ci-build-env/$TAG_NAME/ --tag ci-build-env:$TAG_NAME
-    - name: Test image tag $TAG_NAME
-      run: |
-        docker run --rm ci-build-env:$TAG_NAME cat env_settings
-        docker run --rm ci-build-env:$TAG_NAME ./env_test.sh
+    - name: Build Docker image ${{env.DOCKER_NAME}}:${{env.TAG_NAME}}
+      run: docker build ${{env.DOCKER_NAME}}/${{env.TAG_NAME}}/ --tag ${{env.DOCKER_NAME}}:${{env.TAG_NAME}}
+    - name: Show tools installed
+      run: docker run --rm ${{env.DOCKER_NAME}}:${{env.TAG_NAME}} cat env_settings
+    - name: Test docker image
+      run: docker run --rm ${{env.DOCKER_NAME}}:${{env.TAG_NAME}} ./env_test.sh
 
