@@ -1,4 +1,4 @@
-name: Docker Repo [ ci-test-env ] PR Check
+name: [ ci-test-env ] PR Check
 
 on:
   pull_request:

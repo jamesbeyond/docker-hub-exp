@@ -39,6 +39,7 @@ WORKDIR $WORKDIR
 RUN /bin/bash -c \
    "set -x -o pipefail \
     && python --version 2>&1 | tee env_settings \
+    && git --version | tee -a env_settings \
     && aws --version | tee -a env_settings \
     && west --version | tee -a env_settings \
     && : # LAST LINE"

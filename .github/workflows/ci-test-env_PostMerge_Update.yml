@@ -1,4 +1,4 @@
-name: Docker Repo [ ci-test-env ] Active Update Push
+name: [ ci-test-env ] Active Update Push
 
 on:
   # This workflow only runs when triggered by a push event
