@@ -1,4 +1,4 @@
-name: Docker Repo [ ci-test-env ] Passive Update
+name: Passive Update [ ci-test-env ]
 
 on:
   schedule:
@@ -29,7 +29,7 @@ jobs:
       run: echo TBD Implement push function for ${{env.DOCKER_NAME}}:${{env.TAG_NAME}}
 
   TAG-zephyr:
-    runs-on: ubuntu-20.0a
+    runs-on: ubuntu-20.04
     env:
       TAG_NAME: zephyr
     steps:

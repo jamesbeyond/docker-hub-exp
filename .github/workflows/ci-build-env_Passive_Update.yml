@@ -1,4 +1,4 @@
-name: Docker Repo [ ci-build-env ] Passive Update
+name: Passive Update [ ci-build-env ]
 
 on:
   schedule:
