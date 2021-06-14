@@ -1,4 +1,4 @@
-name: [ ci-test-env ] Active Update Push
+name: Active Update Push [ ci-test-env ]
 
 on:
   # This workflow only runs when triggered by a push event

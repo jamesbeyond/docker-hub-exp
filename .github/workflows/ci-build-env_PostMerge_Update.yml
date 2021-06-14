@@ -1,4 +1,4 @@
-name: [ ci-build-env ] Active Update Push
+name: Active Update Push [ ci-build-env ]
 
 on:
   # This workflow only runs when triggered by a push event

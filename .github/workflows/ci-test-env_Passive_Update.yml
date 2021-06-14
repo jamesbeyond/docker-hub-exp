@@ -1,4 +1,4 @@
-name: [ ci-test-env ] Passive Update
+name: Passive Update [ ci-test-env ]
 
 on:
   schedule:
